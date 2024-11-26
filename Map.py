@@ -24,6 +24,17 @@ folium.GeoJson(
     )
 ).add_to(m)
 
+folium.marker(
+    location = [34.07747707056721, -118.47321115985991],
+    icon = folium.Icon(icon = 'building-columns'),
+    popup = folium.Popup(
+        f"""
+        The Getty
+        https://www.getty.edu/
+        """,
+        max_width = 250)
+).add_to(m)
+
 # Add layer control
 folium.LayerControl().add_to(m)
 
