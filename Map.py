@@ -24,7 +24,7 @@ folium.GeoJson(
     )
 ).add_to(m)
 
-folium.marker(
+folium.Marker(
     location = [34.07747707056721, -118.47321115985991],
     icon = folium.Icon(icon = 'building-columns'),
     popup = folium.Popup(
