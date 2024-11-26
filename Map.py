@@ -7,7 +7,9 @@ from streamlit_folium import st_folium # Plots folium map to the Streamlit app
 from branca.colormap import linear
 
 # Streamlit app display
-st.title("Los Angeles AirBnBs by Region")
+st.title("Los Angeles by Region")
+st.header("Map of Los Angeles")
+st.write("See AirBnB information by region and popular Los Angeles attractions!")
 
 geojson_file = "output_file.geojson"
 
@@ -18,13 +20,13 @@ folium.GeoJson(
     data=open(geojson_file, 'r').read(),  # Load GeoJSON data
     name="Regions",
     tooltip=folium.GeoJsonTooltip(
-        fields=["NAME","price"],  # Replace with the property names in your GeoJSON file
-        aliases=["Region Name:", "Average Price/Night:"],
+        fields=["NAME","price", "number"],  # Replace with the property names in your GeoJSON file
+        aliases=["Region Name:", "Average Price/Night:", "Number of AirBnBs"],
         localize=True,  # Localize tooltip data
     )
 ).add_to(m)
 
-attractions = pd.read_csv('attractions.csv',encoding='cp1252')
+attractions = pd.read_csv('attractions.csv')
 
 for index, row in attractions.iterrows():
    folium.Marker(
@@ -43,3 +45,5 @@ for index, row in attractions.iterrows():
 folium.LayerControl().add_to(m)
 
 st_folium(m, width = 700, height = 500)
+
+st.write('Press on each icon to see attraction information.')
