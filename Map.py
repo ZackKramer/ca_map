@@ -24,16 +24,20 @@ folium.GeoJson(
     )
 ).add_to(m)
 
-folium.Marker(
-    location = [34.07747707056721, -118.47321115985991],
-    icon = folium.Icon(icon = 'building-columns'),
-    popup = folium.Popup(
-        f"""
-        The Getty
-        https://www.getty.edu/
-        """,
-        max_width = 250)
-).add_to(m)
+attractions = pd.read_csv('attractions.csv',encoding='cp1252')
+
+for index, row in attractions.iterrows():
+   folium.Marker(
+       location = [row['latitude'], row['longitude']],
+       icon = folium.Icon(icon = row['icon'], prefix = 'fa'),
+       popup = folium.Popup(
+           f"""
+           {row['name']}<br>
+           Website: {row['website']}<br>
+           {row['description']}
+           """,
+           max_width = 250)
+   ).add_to(m)
 
 # Add layer control
 folium.LayerControl().add_to(m)
